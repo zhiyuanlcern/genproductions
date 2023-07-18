@@ -2,12 +2,12 @@
 
 default=$(basename $(pwd))
 
-is=(1000 2100 900 500 2100 1500 1500 2100 500 700 1200 1800 500 700 900 700 900 1200 1500 1800 2100 800 800 1000 1000 1200)
-js=(600 2000 350 400 1000 1400 1000 1600 350 350 850 1600 370 370 370 400 400 400 400 400 400 600 650 700 800 1000)
+is=(360 400 400 500 500 500 500 600 600 600 600 700 700 700 700 800 800 800 800 1000 1000 1000 1000 1500 1500 1500 1500 2000 2000 2000 2000 2500 2500 2500 2500 3000 3000 3000 3000 )
+js=(260 260 300 260 300 350 400 260 300 350 400 260 300 350 400 260 300 350 400 260 300 350 400 260 300 350 400 260 300 350 400 260 300 350 400 260 300 350 400)
 for idx in "${!is[@]}"; do
    mA=${is[$idx]}
    mH=${js[$idx]}
-   ks=0.03
+   ks=0.2
    echo $wA
     echo "Copying mass (mA,mH)" # ($mA,$mH)
     newdir="$default"_mA"$mA"_mH"$mH"
@@ -22,84 +22,125 @@ for idx in "${!is[@]}"; do
     # Modify mass parameter
     sed -i 's/AMASS/'$mA'.0/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
     sed -i 's/HMASS/'$mH'.0/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
-    sed -i 's/HWIDTH/'$(bc <<< "$ks * $mH")'/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
+    # sed -i 's/HWIDTH/'$(bc <<< "$ks * $mH")'/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
+    sed -i 's/HWIDTH/'$(bc <<< " 0 ")'/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
     sed -i 's/AWIDTH/'$(bc <<< "$ks * $mA")'/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
 done
 
-sed -i 's/lambda2/-11.88587/g' AZHToLLtt_mA1000_mH600/AZHToLLtt_mA1000_mH600_customizecards.dat
-sed -i 's/lambda3/11.04078/g' AZHToLLtt_mA1000_mH600/AZHToLLtt_mA1000_mH600_customizecards.dat 
+sed -i 's/lambda2/-1.00442/g' AZHToLLtt_mA360_mH260/AZHToLLtt_mA360_mH260_customizecards.dat
+sed -i 's/lambda3/1.31454/g' AZHToLLtt_mA360_mH260/AZHToLLtt_mA360_mH260_customizecards.dat
 
-sed -i 's/lambda2/-11.53552/g' AZHToLLtt_mA1000_mH700/AZHToLLtt_mA1000_mH700_customizecards.dat
-sed -i 's/lambda3/8.16190/g' AZHToLLtt_mA1000_mH700/AZHToLLtt_mA1000_mH700_customizecards.dat
+sed -i 's/lambda2/-1.50586/g' AZHToLLtt_mA400_mH260/AZHToLLtt_mA400_mH260_customizecards.dat
+sed -i 's/lambda3/1.81599/g' AZHToLLtt_mA400_mH260/AZHToLLtt_mA400_mH260_customizecards.dat
 
-sed -i 's/lambda2/-10.34045/g' AZHToLLtt_mA1000_mH800/AZHToLLtt_mA1000_mH800_customizecards.dat
-sed -i 's/lambda3/8.98175/g' AZHToLLtt_mA1000_mH800/AZHToLLtt_mA1000_mH800_customizecards.dat
+sed -i 's/lambda2/-1.23958/g' AZHToLLtt_mA400_mH300/AZHToLLtt_mA400_mH300_customizecards.dat
+sed -i 's/lambda3/1.46121/g' AZHToLLtt_mA400_mH300/AZHToLLtt_mA400_mH300_customizecards.dat
 
-sed -i 's/lambda2/-11.53552/g' AZHToLLtt_mA1200_mH1000/AZHToLLtt_mA1200_mH1000_customizecards.dat
-sed -i 's/lambda3/8.16190/g' AZHToLLtt_mA1200_mH1000/AZHToLLtt_mA1200_mH1000_customizecards.dat
+sed -i 's/lambda2/-2.99041/g' AZHToLLtt_mA500_mH260/AZHToLLtt_mA500_mH260_customizecards.dat
+sed -i 's/lambda3/3.30054/g' AZHToLLtt_mA500_mH260/AZHToLLtt_mA500_mH260_customizecards.dat
 
-sed -i 's/lambda2/-21.52136/g' AZHToLLtt_mA1200_mH400/AZHToLLtt_mA1200_mH400_customizecards.dat
-sed -i 's/lambda3/21.46644/g' AZHToLLtt_mA1200_mH400/AZHToLLtt_mA1200_mH400_customizecards.dat
+sed -i 's/lambda2/-2.72413/g' AZHToLLtt_mA500_mH300/AZHToLLtt_mA500_mH300_customizecards.dat
+sed -i 's/lambda3/2.94575/g' AZHToLLtt_mA500_mH300/AZHToLLtt_mA500_mH300_customizecards.dat
 
-sed -i 's/lambda2/-14.83442/g' AZHToLLtt_mA1200_mH850/AZHToLLtt_mA1200_mH850_customizecards.dat
-sed -i 's/lambda3/12.55715/g' AZHToLLtt_mA1200_mH850/AZHToLLtt_mA1200_mH850_customizecards.dat
+sed -i 's/lambda2/-2.33778/g' AZHToLLtt_mA500_mH350/AZHToLLtt_mA500_mH350_customizecards.dat
+sed -i 's/lambda3/2.43100/g' AZHToLLtt_mA500_mH350/AZHToLLtt_mA500_mH350_customizecards.dat
 
-sed -i 's/lambda2/-24.89667/g' AZHToLLtt_mA1500_mH1000/AZHToLLtt_mA1500_mH1000_customizecards.dat
-sed -i 's/lambda3/21.52305/g' AZHToLLtt_mA1500_mH1000/AZHToLLtt_mA1500_mH1000_customizecards.dat
+sed -i 's/lambda2/-1.89199/g' AZHToLLtt_mA500_mH400/AZHToLLtt_mA500_mH400_customizecards.dat
+sed -i 's/lambda3/1.83706/g' AZHToLLtt_mA500_mH400/AZHToLLtt_mA500_mH400_customizecards.dat
 
-sed -i 's/lambda2/-13.48428/g' AZHToLLtt_mA1500_mH1400/AZHToLLtt_mA1500_mH1400_customizecards.dat
-sed -i 's/lambda3/6.31786/g' AZHToLLtt_mA1500_mH1400/AZHToLLtt_mA1500_mH1400_customizecards.dat
+sed -i 's/lambda2/-4.80486/g' AZHToLLtt_mA600_mH260/AZHToLLtt_mA600_mH260_customizecards.dat
+sed -i 's/lambda3/5.11498/g' AZHToLLtt_mA600_mH260/AZHToLLtt_mA600_mH260_customizecards.dat
 
-sed -i 's/lambda2/-34.88251/g' AZHToLLtt_mA1500_mH400/AZHToLLtt_mA1500_mH400_customizecards.dat
-sed -i 's/lambda3/34.82759/g' AZHToLLtt_mA1500_mH400/AZHToLLtt_mA1500_mH400_customizecards.dat
+sed -i 's/lambda2/-4.53857/g' AZHToLLtt_mA600_mH300/AZHToLLtt_mA600_mH300_customizecards.dat
+sed -i 's/lambda3/4.76020/g' AZHToLLtt_mA600_mH300/AZHToLLtt_mA600_mH300_customizecards.dat
 
-sed -i 's/lambda2/-60.52640/g' AZHToLLtt_mA2100_mH1000/AZHToLLtt_mA2100_mH1000_customizecards.dat
-sed -i 's/lambda3/57.15278/g' AZHToLLtt_mA2100_mH1000/AZHToLLtt_mA2100_mH1000_customizecards.dat
+sed -i 's/lambda2/-4.15222/g' AZHToLLtt_mA600_mH350/AZHToLLtt_mA600_mH350_customizecards.dat
+sed -i 's/lambda3/4.24545/g' AZHToLLtt_mA600_mH350/AZHToLLtt_mA600_mH350_customizecards.dat
 
-sed -i 's/lambda2/-22.68184/g' AZHToLLtt_mA1800_mH1600/AZHToLLtt_mA1800_mH1600_customizecards.dat
-sed -i 's/lambda3/13.14491/g' AZHToLLtt_mA1800_mH1600/AZHToLLtt_mA1800_mH1600_customizecards.dat
+sed -i 's/lambda2/-3.70643/g' AZHToLLtt_mA600_mH400/AZHToLLtt_mA600_mH400_customizecards.dat
+sed -i 's/lambda3/3.65151/g' AZHToLLtt_mA600_mH400/AZHToLLtt_mA600_mH400_customizecards.dat
 
-sed -i 's/lambda2/-51.21280/g' AZHToLLtt_mA1800_mH400/AZHToLLtt_mA1800_mH400_customizecards.dat
-sed -i 's/lambda3/51.15788/g' AZHToLLtt_mA1800_mH400/AZHToLLtt_mA1800_mH400_customizecards.dat
+sed -i 's/lambda2/-6.94920/g' AZHToLLtt_mA700_mH260/AZHToLLtt_mA700_mH260_customizecards.dat
+sed -i 's/lambda3/7.25933/g' AZHToLLtt_mA700_mH260/AZHToLLtt_mA700_mH260_customizecards.dat
 
-sed -i 's/lambda2/-41.98127/g' AZHToLLtt_mA2100_mH1600/AZHToLLtt_mA2100_mH1600_customizecards.dat
-sed -i 's/lambda3/32.44435/g' AZHToLLtt_mA2100_mH1600/AZHToLLtt_mA2100_mH1600_customizecards.dat
+sed -i 's/lambda2/-6.68292/g' AZHToLLtt_mA700_mH300/AZHToLLtt_mA700_mH300_customizecards.dat
+sed -i 's/lambda3/6.90455/g' AZHToLLtt_mA700_mH300/AZHToLLtt_mA700_mH300_customizecards.dat
 
-sed -i 's/lambda2/-24.86269/g' AZHToLLtt_mA2100_mH2000/AZHToLLtt_mA2100_mH2000_customizecards.dat
-sed -i 's/lambda3/9.63657/g' AZHToLLtt_mA2100_mH2000/AZHToLLtt_mA2100_mH2000_customizecards.dat
+sed -i 's/lambda2/-6.29657/g' AZHToLLtt_mA700_mH350/AZHToLLtt_mA700_mH350_customizecards.dat
+sed -i 's/lambda3/6.38980/g' AZHToLLtt_mA700_mH350/AZHToLLtt_mA700_mH350_customizecards.dat
 
-sed -i 's/lambda2/-70.51224/g' AZHToLLtt_mA2100_mH400/AZHToLLtt_mA2100_mH400_customizecards.dat
-sed -i 's/lambda3/70.45732/g' AZHToLLtt_mA2100_mH400/AZHToLLtt_mA2100_mH400_customizecards.dat
+sed -i 's/lambda2/-5.85078/g' AZHToLLtt_mA700_mH400/AZHToLLtt_mA700_mH400_customizecards.dat
+sed -i 's/lambda3/5.79585/g' AZHToLLtt_mA700_mH400/AZHToLLtt_mA700_mH400_customizecards.dat
 
-sed -i 's/lambda2/-2.33782/g' AZHToLLtt_mA500_mH350/AZHToLLtt_mA500_mH350_customizecards.dat
-sed -i 's/lambda3/2.43105/g' AZHToLLtt_mA500_mH350/AZHToLLtt_mA500_mH350_customizecards.dat
+sed -i 's/lambda2/-9.42345/g' AZHToLLtt_mA800_mH260/AZHToLLtt_mA800_mH260_customizecards.dat
+sed -i 's/lambda3/9.73357/g' AZHToLLtt_mA800_mH260/AZHToLLtt_mA800_mH260_customizecards.dat
 
-sed -i 's/lambda2/-2.16663/g' AZHToLLtt_mA500_mH370/AZHToLLtt_mA500_mH370_customizecards.dat
-sed -i 's/lambda3/2.20297/g' AZHToLLtt_mA500_mH370/AZHToLLtt_mA500_mH370_customizecards.dat
+sed -i 's/lambda2/-9.15716/g' AZHToLLtt_mA800_mH300/AZHToLLtt_mA800_mH300_customizecards.dat
+sed -i 's/lambda3/9.37879/g' AZHToLLtt_mA800_mH300/AZHToLLtt_mA800_mH300_customizecards.dat
 
-sed -i 's/lambda2/-1.89202/g' AZHToLLtt_mA500_mH400/AZHToLLtt_mA500_mH400_customizecards.dat
-sed -i 's/lambda3/1.83709/g' AZHToLLtt_mA500_mH400/AZHToLLtt_mA500_mH400_customizecards.dat
+sed -i 's/lambda2/-8.77081/g' AZHToLLtt_mA800_mH350/AZHToLLtt_mA800_mH350_customizecards.dat
+sed -i 's/lambda3/8.86404/g' AZHToLLtt_mA800_mH350/AZHToLLtt_mA800_mH350_customizecards.dat
 
-sed -i 's/lambda2/-6.29667/g' AZHToLLtt_mA700_mH350/AZHToLLtt_mA700_mH350_customizecards.dat
-sed -i 's/lambda3/6.38991/g' AZHToLLtt_mA700_mH350/AZHToLLtt_mA700_mH350_customizecards.dat
+sed -i 's/lambda2/-8.32502/g' AZHToLLtt_mA800_mH400/AZHToLLtt_mA800_mH400_customizecards.dat
+sed -i 's/lambda3/8.27010/g' AZHToLLtt_mA800_mH400/AZHToLLtt_mA800_mH400_customizecards.dat
 
-sed -i 's/lambda2/-6.12549/g' AZHToLLtt_mA700_mH370/AZHToLLtt_mA700_mH370_customizecards.dat
-sed -i 's/lambda3/6.16183/g' AZHToLLtt_mA700_mH370/AZHToLLtt_mA700_mH370_customizecards.dat
+sed -i 's/lambda2/-15.36163/g' AZHToLLtt_mA1000_mH260/AZHToLLtt_mA1000_mH260_customizecards.dat
+sed -i 's/lambda3/15.67176/g' AZHToLLtt_mA1000_mH260/AZHToLLtt_mA1000_mH260_customizecards.dat
 
-sed -i 's/lambda2/-5.85088/g' AZHToLLtt_mA700_mH400/AZHToLLtt_mA700_mH400_customizecards.dat
-sed -i 's/lambda3/5.79595/g' AZHToLLtt_mA700_mH400/AZHToLLtt_mA700_mH400_customizecards.dat
+sed -i 's/lambda2/-15.09535/g' AZHToLLtt_mA1000_mH300/AZHToLLtt_mA1000_mH300_customizecards.dat
+sed -i 's/lambda3/15.31698/g' AZHToLLtt_mA1000_mH300/AZHToLLtt_mA1000_mH300_customizecards.dat
 
-sed -i 's/lambda2/-5.94758/g' AZHToLLtt_mA800_mH600/AZHToLLtt_mA800_mH600_customizecards.dat
-sed -i 's/lambda3/5.10249/g' AZHToLLtt_mA800_mH600/AZHToLLtt_mA800_mH600_customizecards.dat
+sed -i 's/lambda2/-14.70900/g' AZHToLLtt_mA1000_mH350/AZHToLLtt_mA1000_mH350_customizecards.dat
+sed -i 's/lambda3/14.80223/g' AZHToLLtt_mA1000_mH350/AZHToLLtt_mA1000_mH350_customizecards.dat
 
-sed -i 's/lambda2/-5.20459/g' AZHToLLtt_mA800_mH650/AZHToLLtt_mA800_mH650_customizecards.dat
-sed -i 's/lambda3/4.11257/g' AZHToLLtt_mA800_mH650/AZHToLLtt_mA800_mH650_customizecards.dat
+sed -i 's/lambda2/-14.26321/g' AZHToLLtt_mA1000_mH400/AZHToLLtt_mA1000_mH400_customizecards.dat
+sed -i 's/lambda3/14.20828/g' AZHToLLtt_mA1000_mH400/AZHToLLtt_mA1000_mH400_customizecards.dat
 
-sed -i 's/lambda2/-11.57515/g' AZHToLLtt_mA900_mH350/AZHToLLtt_mA900_mH350_customizecards.dat
-sed -i 's/lambda3/11.66838/g' AZHToLLtt_mA900_mH350/AZHToLLtt_mA900_mH350_customizecards.dat
+sed -i 's/lambda2/-35.98034/g' AZHToLLtt_mA1500_mH260/AZHToLLtt_mA1500_mH260_customizecards.dat
+sed -i 's/lambda3/36.29046/g' AZHToLLtt_mA1500_mH260/AZHToLLtt_mA1500_mH260_customizecards.dat
 
-sed -i 's/lambda2/-11.40397/g' AZHToLLtt_mA900_mH370/AZHToLLtt_mA900_mH370_customizecards.dat
-sed -i 's/lambda3/11.44031/g' AZHToLLtt_mA900_mH370/AZHToLLtt_mA900_mH370_customizecards.dat
+sed -i 's/lambda2/-35.71405/g' AZHToLLtt_mA1500_mH300/AZHToLLtt_mA1500_mH300_customizecards.dat
+sed -i 's/lambda3/35.93568/g' AZHToLLtt_mA1500_mH300/AZHToLLtt_mA1500_mH300_customizecards.dat
 
-sed -i 's/lambda2/-11.12936/g' AZHToLLtt_mA900_mH400/AZHToLLtt_mA900_mH400_customizecards.dat
-sed -i 's/lambda3/11.07443/g' AZHToLLtt_mA900_mH400/AZHToLLtt_mA900_mH400_customizecards.dat
+sed -i 's/lambda2/-35.32770/g' AZHToLLtt_mA1500_mH350/AZHToLLtt_mA1500_mH350_customizecards.dat
+sed -i 's/lambda3/35.42093/g' AZHToLLtt_mA1500_mH350/AZHToLLtt_mA1500_mH350_customizecards.dat
+
+sed -i 's/lambda2/-34.88191/g' AZHToLLtt_mA1500_mH400/AZHToLLtt_mA1500_mH400_customizecards.dat
+sed -i 's/lambda3/34.82699/g' AZHToLLtt_mA1500_mH400/AZHToLLtt_mA1500_mH400_customizecards.dat
+
+sed -i 's/lambda2/-64.84652/g' AZHToLLtt_mA2000_mH260/AZHToLLtt_mA2000_mH260_customizecards.dat
+sed -i 's/lambda3/65.15665/g' AZHToLLtt_mA2000_mH260/AZHToLLtt_mA2000_mH260_customizecards.dat
+
+sed -i 's/lambda2/-64.58024/g' AZHToLLtt_mA2000_mH300/AZHToLLtt_mA2000_mH300_customizecards.dat
+sed -i 's/lambda3/64.80187/g' AZHToLLtt_mA2000_mH300/AZHToLLtt_mA2000_mH300_customizecards.dat
+
+sed -i 's/lambda2/-64.19389/g' AZHToLLtt_mA2000_mH350/AZHToLLtt_mA2000_mH350_customizecards.dat
+sed -i 's/lambda3/64.28712/g' AZHToLLtt_mA2000_mH350/AZHToLLtt_mA2000_mH350_customizecards.dat
+
+sed -i 's/lambda2/-63.74810/g' AZHToLLtt_mA2000_mH400/AZHToLLtt_mA2000_mH400_customizecards.dat
+sed -i 's/lambda3/63.69317/g' AZHToLLtt_mA2000_mH400/AZHToLLtt_mA2000_mH400_customizecards.dat
+
+sed -i 's/lambda2/-101.96019/g' AZHToLLtt_mA2500_mH260/AZHToLLtt_mA2500_mH260_customizecards.dat
+sed -i 's/lambda3/102.27031/g' AZHToLLtt_mA2500_mH260/AZHToLLtt_mA2500_mH260_customizecards.dat
+
+sed -i 's/lambda2/-101.69390/g' AZHToLLtt_mA2500_mH300/AZHToLLtt_mA2500_mH300_customizecards.dat
+sed -i 's/lambda3/101.91553/g' AZHToLLtt_mA2500_mH300/AZHToLLtt_mA2500_mH300_customizecards.dat
+
+sed -i 's/lambda2/-101.30755/g' AZHToLLtt_mA2500_mH350/AZHToLLtt_mA2500_mH350_customizecards.dat
+sed -i 's/lambda3/101.40078/g' AZHToLLtt_mA2500_mH350/AZHToLLtt_mA2500_mH350_customizecards.dat
+
+sed -i 's/lambda2/-100.86176/g' AZHToLLtt_mA2500_mH400/AZHToLLtt_mA2500_mH400_customizecards.dat
+sed -i 's/lambda3/100.80684/g' AZHToLLtt_mA2500_mH400/AZHToLLtt_mA2500_mH400_customizecards.dat
+
+sed -i 's/lambda2/-147.32133/g' AZHToLLtt_mA3000_mH260/AZHToLLtt_mA3000_mH260_customizecards.dat
+sed -i 's/lambda3/147.63146/g' AZHToLLtt_mA3000_mH260/AZHToLLtt_mA3000_mH260_customizecards.dat
+
+sed -i 's/lambda2/-147.05505/g' AZHToLLtt_mA3000_mH300/AZHToLLtt_mA3000_mH300_customizecards.dat
+sed -i 's/lambda3/147.27668/g' AZHToLLtt_mA3000_mH300/AZHToLLtt_mA3000_mH300_customizecards.dat
+
+sed -i 's/lambda2/-146.66870/g' AZHToLLtt_mA3000_mH350/AZHToLLtt_mA3000_mH350_customizecards.dat
+sed -i 's/lambda3/146.76193/g' AZHToLLtt_mA3000_mH350/AZHToLLtt_mA3000_mH350_customizecards.dat
+
+sed -i 's/lambda2/-146.22291/g' AZHToLLtt_mA3000_mH400/AZHToLLtt_mA3000_mH400_customizecards.dat
+sed -i 's/lambda3/146.16799/g' AZHToLLtt_mA3000_mH400/AZHToLLtt_mA3000_mH400_customizecards.dat
+
