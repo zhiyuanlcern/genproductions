@@ -9,11 +9,8 @@ import os.path
 import string
 import glob
 from datetime import datetime
-###########Needed to check for ultra-legacy sample consistency check############################################
-os.system('env -i KRB5CCNAME="$KRB5CCNAME" cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o cookiefile.txt --krb --reprocess')
-################################################################################################################
-sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
-from rest3 import McM
+sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
+from rest import McM
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -51,13 +48,8 @@ if args.develop is False:
        sys.exit()
 	
 # Use no-id as identification mode in order not to use a SSO cookie
-mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
-mcm2 = McM(cookie='cookiefile.txt', dev=args.dev, debug=args.debug)
-
-if args.dev is True:
-    mcm_link = "https://cms-pdmv-dev.cern.ch/mcm/"
-else:
-    mcm_link = "https://cms-pdmv.cern.ch/mcm/"
+mcm = McM(id=None, dev=args.dev, debug=args.debug)
+mcm_link = mcm.server
 
 def get_request(prepid):
     result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
@@ -86,11 +78,12 @@ def get_ticket(prepid):
     return result
 
 def get_requests_from_datasetname(dn):
-    result = mcm2.get('requests', query='dataset_name=%s' % (dn))
-    if not result:
-        return {}
-
-    return result
+    raw_result = mcm._McM__get(
+        "public/restapi/requests/from_dataset_name/%s" % (dn)
+    )
+    if not raw_result:
+        return []
+    return raw_result.get("results", [])
 
 def find_file(dir_path,patt):
     for root, dirs, files in os.walk(dir_path):
@@ -667,7 +660,7 @@ for num in range(0,len(prepid)):
         os.system('wget -q '+mcm_link+'public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
         gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
         if os.path.getsize(pi+'_get_test') == 0:
-            print("public/restapi/requests/get_test/ is not acessible for this request. Exiting! Please contact geovanny.gonzalez@cern.ch")
+            print("public/restapi/requests/get_test/ is not acessible for this request. Exiting! Please send an email to 'cms-ppd-pdmv-dev@cern.ch'")
             sys.exit()
         scram_arch = os.popen('grep SCRAM_ARCH '+pi+'_get_test').read()
         scram_arch = scram_arch.split('=')[1].rstrip()
@@ -1041,7 +1034,15 @@ for num in range(0,len(prepid)):
                     dir_path = os.path.join(my_path,pi,"InputCards")
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
+                        input_cards_madspin_card = find_file(dir_path,"madspin_madspin_card.dat")
                         input_patch = find_file(dir_path,"patch")
+                        if input_cards_madspin_card:
+                            print("---------------------------------------------")
+                            print("MadSpin card:")
+                            with open(input_cards_madspin_card, 'r') as f_madspin_card:
+                                for line in f_madspin_card.readlines():
+                                    print(line)
+                            print("End of MadSpin card--------------------------\n")
                         if input_patch:
                             print("Checking running Yukawa coupling:")
                             print("input patch file: "+input_patch)
