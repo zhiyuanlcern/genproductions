@@ -691,6 +691,7 @@ if __name__ == "__main__":
         if QUEUE == 'none':
             print('Direct running single grid... \n')
             os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log &')
+            print('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log &')
 
         else:
             print('Submitting to condor queues  \n')
